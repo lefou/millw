@@ -9,6 +9,7 @@ Small script to automatically fetch and execute mill build tool.
 It automatically downloads a mill release into `$HOME/.mill/download`. 
 
 The mill version to be used will be determined by the following steps.
+The search ends, after the first step that results in a version.
 
 * If the first parameter is `--mill-version`, the second parameter will be used as the mill version.
 
