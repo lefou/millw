@@ -1,5 +1,38 @@
 = Mill Wrapper Script
+:millw: `millw`
 
 Small script to automatically fetch and execute mill build tool.
 
+== How it works
 
+{millw} is a small wrapper script around mill and works almost identical to mill.
+It automatically downloads a mill release into `$HOME/.mill/download`. 
+
+The mill version to be used will be determined by the following steps.
+
+* If the first parameter is `--mill-version`, the second parameter will be used as the mill version.
+
+* If there is a file `.mill-version` in the working directory, it's content will be used as mill version.
+  The file must have only a mill version as content, no additional content or comments are supported.
+
+* The values of the `DEFAULT_MILL_VERSION` variable inside the script will be used.
+
+== Use cases
+
+=== As mill executable
+
+Istead of installing mill, you can just place the script into you local `$HOME/bin` directory and rename it to `mill`.
+
+If you need a special mill version in a project directory, just place a `.mill-version` file with the best mill version.
+
+.Example: setting mill 0.3.6 as best local mill version
+----
+sh> echo -n "0.3.6" > .mill-version
+----
+
+=== As a wrapper script in your project
+
+To make the start for others easier or to always have the correct mill version in cour Continious Integration System,
+you can just place a copy of the script as `millw` in your project root directory.
+You should change the `DEFAULT_MILL_VERSION` variable in that script to the correct version you want to use
+and add the file to the version control system.
