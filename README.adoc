@@ -59,3 +59,9 @@ and add the file under version control.
 == License
 
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
+
+== Changelog
+
+=== millw 0.1.0 
+
+* First release
