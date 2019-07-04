@@ -7,7 +7,7 @@
 # Project page: https://github.com/lefou/millw
 
 
-DEFAULT_MILL_VERSION=0.3.6
+DEFAULT_MILL_VERSION=0.4.2
 
 set -e
 
@@ -28,11 +28,35 @@ if [ "x$1" = "x--mill-version" ] ; then
   fi
 fi
 
-if [ "x${MILL_VERSION}" = "x" ] ; then
-  MILL_VERSION="${DEFAULT_MILL_VERSION}"
-fi
-
 MILL_DOWNLOAD_PATH="${HOME}/.mill/download"
+
+if [ "x${MILL_VERSION}" = "x" ] ; then
+  # TODO: try to load latest version from release page
+  echo "No mill version specified."
+  echo "You should provide a version via '.mill-version' file or --mill-version option."
+
+  mkdir -p "${MILL_DOWNLOAD_PATH}"
+  LANG=C touch -d '1 hour ago' "${MILL_DOWNLOAD_PATH}/.expire_latest"
+  if [ "${MILL_DOWNLOAD_PATH}/.latest" -nt "${MILL_DOWNLOAD_PATH}/.expire_latest" ] ; then
+    # we know a current latest version
+    MILL_VERSION="$(head -n 1 ${MILL_DOWNLOAD_PATH}/.latest 2> /dev/null)"
+  fi
+
+  if [ "x${MILL_VERSION}" = "x" ] ; then
+    # we don't know a current latest version
+    echo "Retrieving latest mill version ..."
+    LANG=C curl -s -i -f -I https://github.com/lihaoyi/mill/releases/latest 2> /dev/null  | grep Location: | sed s'/^.*tag\///' | tr -d '\r\n' > "${MILL_DOWNLOAD_PATH}/.latest" 
+    MILL_VERSION="$(head -n 1 ${MILL_DOWNLOAD_PATH}/.latest 2> /dev/null)"
+  fi
+
+  if [ "x${MILL_VERSION}" = "x" ] ; then
+    # Last resort
+    MILL_VERSION="${DEFAULT_MILL_VERSION}"
+    echo "Falling back to hardcoded mill version ${MILL_VERSION}"
+  else
+    echo "Using mill version is ${MILL_VERSION}"
+  fi
+fi
 
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
