@@ -5,6 +5,10 @@
 # If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 #
 # Project page: https://github.com/lefou/millw
+#
+# If you want to improve this script, please also contribute your changes back!
+#
+# Licensed under the Apache License, Version 2.0
 
 
 DEFAULT_MILL_VERSION=0.4.2
