@@ -36,6 +36,7 @@ MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 if [ ! -x "${MILL}" ] ; then
   DOWNLOAD_FILE=$(mktemp mill.XXXX)
   # TODO: handle command not found
+  echo "Downloading mill ${MILL_VERSION} from https://github.com/lihaoyi/mill/releases ..."
   curl -L -o "${DOWNLOAD_FILE}" "https://github.com/lihaoyi/mill/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}"
   chmod +x "${DOWNLOAD_FILE}"
   mkdir -p "${MILL_DOWNLOAD_PATH}"
