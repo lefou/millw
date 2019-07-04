@@ -62,6 +62,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw {master}
+
+* millw: Print info message before download 
+
 === millw 0.1.0 
 
 * First release
