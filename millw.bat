@@ -3,6 +3,8 @@
 rem This is a wrapper script, that automatically download mill from GitHub release pages
 rem You can give the required mill version with --mill-version parameter
 rem If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
+rem
+rem Project page: https://github.com/lefou/millw
 
 rem setlocal seems to be unavailable on Windows 95/98/ME
 rem but I don't think we need to support them in 2019
