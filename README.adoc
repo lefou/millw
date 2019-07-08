@@ -69,6 +69,7 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 * millw: Print info message before download 
 * millw: If no version was given, millw tried to download the latest version
 * millw: Support changed download filename scheme since mill 0.5.0
+* millw: Respect set version from MILL_VERSION environment variable, if defined
 
 === millw 0.1.0 - 2019-03-27
 

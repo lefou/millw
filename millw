@@ -15,10 +15,7 @@ DEFAULT_MILL_VERSION=0.4.2
 
 set -e
 
-if [ -f ".mill-version" ] ; then
-  MILL_VERSION="$(head -n 1 .mill-version 2> /dev/null)"
-fi
-
+# Explicit commandline argument takes precedence over all other methods
 if [ "x$1" = "x--mill-version" ] ; then
   shift
   if [ "x$1" != "x" ] ; then
@@ -32,8 +29,19 @@ if [ "x$1" = "x--mill-version" ] ; then
   fi
 fi
 
+# Please note, that if a MILL_VERSION is already set in the environment,
+# We reuse it's value and skip searching for a value.
+
+# If not already set, read .mill-version file
+if [ "x${MILL_VERSION}" = "x" ] ; then
+  if [ -f ".mill-version" ] ; then
+    MILL_VERSION="$(head -n 1 .mill-version 2> /dev/null)"
+  fi
+fi
+
 MILL_DOWNLOAD_PATH="${HOME}/.mill/download"
 
+# If not already set, try to fetch newest from Github
 if [ "x${MILL_VERSION}" = "x" ] ; then
   # TODO: try to load latest version from release page
   echo "No mill version specified."
@@ -64,6 +72,7 @@ fi
 
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
+# If not already downloaded, download it
 if [ ! -x "${MILL}" ] ; then
   VERSION_PREFIX="$(echo -n $MILL_VERSION | cut -b -4)"
   case $VERSION_PREFIX in
