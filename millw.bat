@@ -5,12 +5,16 @@ rem You can give the required mill version with --mill-version parameter
 rem If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 rem
 rem Project page: https://github.com/lefou/millw
+rem
+rem If you want to improve this script, please also contribute your changes back!
+rem
+rem Licensed under the Apache License, Version 2.0
 
 rem setlocal seems to be unavailable on Windows 95/98/ME
 rem but I don't think we need to support them in 2019
 setlocal enabledelayedexpansion
 
-set DEFAULT_MILL_VERSION=0.3.6
+set DEFAULT_MILL_VERSION=0.4.2
 
 if exist .mill-version (
     set /p MILL_VERSION= < .mill-version
