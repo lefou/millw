@@ -33,6 +33,10 @@ if "%~1%"=="--mill-version" (
     )
 )
 
+rem TODO: read .mill-version file
+rem TODO: support newer download location since mill 0.5.0
+rem see https://stackoverflow.com/questions/15352263/how-to-split-a-string-in-a-windows-batch-files
+
 if "%MILL_VERSION%"=="" (
     set MILL_VERSION=%DEFAULT_MILL_VERSION%
 )
