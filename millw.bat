@@ -16,10 +16,6 @@ setlocal enabledelayedexpansion
 
 set DEFAULT_MILL_VERSION=0.4.2
 
-if exist .mill-version (
-    set /p MILL_VERSION= < .mill-version
-)
-
 rem %~1% removes surrounding quotes
 if "%~1%"=="--mill-version" (
     rem shift command doesn't work within parentheses
@@ -31,6 +27,12 @@ if "%~1%"=="--mill-version" (
         echo https://github.com/lihaoyi/mill/releases
         exit /b 1
     )
+)
+
+if "%MILL_VERSION%"=="" (
+  if exist .mill-version (
+      set /p MILL_VERSION= < .mill-version
+  )
 )
 
 rem TODO: read .mill-version file
