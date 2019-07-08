@@ -65,14 +65,27 @@ fi
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
 if [ ! -x "${MILL}" ] ; then
+  VERSION_PREFIX="$(echo -n $MILL_VERSION | cut -b -4)"
+  case $VERSION_PREFIX in
+    0.1. | 0.2. | 0.3. | 0.4. )
+      DOWNLOAD_SUFFIX=""
+      ;;
+    *)
+      DOWNLOAD_SUFFIX="-assembly"
+      ;;
+  esac
+  unset VERSION_PREFIX
+
   DOWNLOAD_FILE=$(mktemp mill.XXXX)
   # TODO: handle command not found
   echo "Downloading mill ${MILL_VERSION} from https://github.com/lihaoyi/mill/releases ..."
-  curl -L -o "${DOWNLOAD_FILE}" "https://github.com/lihaoyi/mill/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}"
+  curl -L -o "${DOWNLOAD_FILE}" "https://github.com/lihaoyi/mill/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
   chmod +x "${DOWNLOAD_FILE}"
   mkdir -p "${MILL_DOWNLOAD_PATH}"
   mv "${DOWNLOAD_FILE}" "${MILL}"
+
   unset DOWNLOAD_FILE
+  unset DOWNLOAD_SUFFIX
 fi
 
 unset MILL_DOWNLOAD_PATH
