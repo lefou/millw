@@ -11,7 +11,7 @@
 # Licensed under the Apache License, Version 2.0
 
 
-DEFAULT_MILL_VERSION=0.4.2
+DEFAULT_MILL_VERSION=0.5.0
 
 set -e
 
@@ -76,7 +76,7 @@ MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 if [ ! -x "${MILL}" ] ; then
   VERSION_PREFIX="$(echo -n $MILL_VERSION | cut -b -4)"
   case $VERSION_PREFIX in
-    0.1. | 0.2. | 0.3. | 0.4. )
+    0.0. | 0.1. | 0.2. | 0.3. | 0.4. )
       DOWNLOAD_SUFFIX=""
       ;;
     *)
