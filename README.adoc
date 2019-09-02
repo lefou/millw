@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-
+:mill-version: 0.5.0
 
 Small script to automatically fetch and execute mill build tool.
 
@@ -14,25 +14,34 @@ The search ends, after the first step that results in a version.
 * If the first parameter is `--mill-version`, the second parameter will be used as the mill version.
 +
 .Example
-[source,sh]
+[source,sh,subs="attributes,verbatim"]
 ----
-sh $ mill --mill-version 0.3.6 --disable-ticker version
-0.3.6
+sh $ mill --mill-version {mill-version} --disable-ticker version
+{mill-version}
 ----
 
+* else if the environment variable `MILL_VERSION` is defined, it's value will be used.
++
+.Example
+[source,sh,subs="attributes,verbatim"]
+----
+sh $ MILL_VERSION mill --disable-ticket version
+{mill-version}
+----
 
-* If there is a file `.mill-version` in the working directory (Shell script only), it's content will be used as mill version.
+* else if there is a file `.mill-version` in the working directory, it's content will be used as mill version.
   The file must have only a mill version as content, no additional content or comments are supported.
 +
 .Example
-[source,sh]
+
+[source,sh,subs="attributes,verbatim"]
 ----
-sh $ echo -n "0.3.6" > .mill-version
+sh $ echo -n "{mill-version}" > .mill-version
 sh $ mill --disable-ticker version
-0.3.6
+{mill-version}
 ----
 
-* The latest mill release available from the Github release pages will be used (Shell script only).
+* The latest mill release available from the Github release pages will be used.
 
 * The values of the `DEFAULT_MILL_VERSION` variable inside the script will be used.
 
@@ -45,9 +54,9 @@ Istead of installing mill, you can just place the script into you local `$HOME/b
 If you need a special mill version in a project directory, just place a `.mill-version` file with the best mill version.
 
 .Example: setting mill 0.3.6 as best local mill version
-[source,sh]
+[source,sh,subs="attributes,verbatim"]
 ----
-sh $ echo -n "0.3.6" > .mill-version
+sh $ echo -n "{mill-version}" > .mill-version
 ----
 
 === As a wrapper script in your project
@@ -64,10 +73,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
-=== millw {master}
+=== millw 0.2.0 - 2019-07-10
 
-* Print info message before download 
-* millw: If no version was given, millw tried to download the latest version
+* Print info message before download
+* millw: If no version was given, millw tries to download the latest version
 * Support changed download filename scheme since mill 0.5.0
 * Respect set version from MILL_VERSION environment variable, if defined
 
