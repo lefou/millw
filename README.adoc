@@ -6,7 +6,7 @@ Small script to automatically fetch and execute mill build tool.
 == How it works
 
 `millw` is a small wrapper script around mill and works almost identical to mill.
-It automatically downloads a mill release into `$HOME/.mill/download`.
+It automatically downloads the correct mill version (into `${XDG_CACHE_DIR}/mill/download` or `~/.cache/mill/download`).
 
 The mill version to be used will be determined by the following steps.
 The search ends, after the first step that results in a version.
@@ -72,6 +72,10 @@ and add the file under version control.
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw {master}
+
+* Conform to XDG Base Directory Specification (use `~/.cache` dir)
 
 === millw 0.2.0 - 2019-07-10
 
