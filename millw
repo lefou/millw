@@ -70,7 +70,7 @@ if [ "x${MILL_VERSION}" = "x" ] ; then
     MILL_VERSION="${DEFAULT_MILL_VERSION}"
     echo "Falling back to hardcoded mill version ${MILL_VERSION}"
   else
-    echo "Using mill version is ${MILL_VERSION}"
+    echo "Using mill version ${MILL_VERSION}"
   fi
 fi
 
