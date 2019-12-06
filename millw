@@ -39,7 +39,11 @@ if [ "x${MILL_VERSION}" = "x" ] ; then
   fi
 fi
 
-MILL_DOWNLOAD_PATH="${HOME}/.mill/download"
+if [ "x${XDG_CACHE_HOME}" != "x" ] ; then
+  MILL_DOWNLOAD_PATH="${XDG_CACHE_HOME}/mill/download"
+else
+  MILL_DOWNLOAD_PATH="${HOME}/.cache/mill/download"
+fi
 
 # If not already set, try to fetch newest from Github
 if [ "x${MILL_VERSION}" = "x" ] ; then
@@ -74,30 +78,40 @@ MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
 # If not already downloaded, download it
 if [ ! -x "${MILL}" ] ; then
-  VERSION_PREFIX="$(echo -n $MILL_VERSION | cut -b -4)"
-  case $VERSION_PREFIX in
-    0.0. | 0.1. | 0.2. | 0.3. | 0.4. )
-      DOWNLOAD_SUFFIX=""
-      ;;
-    *)
-      DOWNLOAD_SUFFIX="-assembly"
-      ;;
-  esac
-  unset VERSION_PREFIX
+  
+  # support old non-XDG download dir
+  MILL_OLD_DOWNLOAD_PATH="${HOME}/.mill/download"
+  OLD_MILL="${MILL_OLD_DOWNLOAD_PATH}/${MILL_VERSION}"
+  if [ -x "${OLD_MILL}" ] ; then
+    MILL="${OLD_MILL}"
+  else
+    VERSION_PREFIX="$(echo -n $MILL_VERSION | cut -b -4)"
+    case $VERSION_PREFIX in
+      0.0. | 0.1. | 0.2. | 0.3. | 0.4. )
+        DOWNLOAD_SUFFIX=""
+        ;;
+      *)
+        DOWNLOAD_SUFFIX="-assembly"
+        ;;
+    esac
+    unset VERSION_PREFIX
 
-  DOWNLOAD_FILE=$(mktemp mill.XXXX)
-  # TODO: handle command not found
-  echo "Downloading mill ${MILL_VERSION} from https://github.com/lihaoyi/mill/releases ..."
-  curl -L -o "${DOWNLOAD_FILE}" "https://github.com/lihaoyi/mill/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
-  chmod +x "${DOWNLOAD_FILE}"
-  mkdir -p "${MILL_DOWNLOAD_PATH}"
-  mv "${DOWNLOAD_FILE}" "${MILL}"
+    DOWNLOAD_FILE=$(mktemp mill.XXXX)
+    # TODO: handle command not found
+    echo "Downloading mill ${MILL_VERSION} from https://github.com/lihaoyi/mill/releases ..."
+    curl -L -o "${DOWNLOAD_FILE}" "https://github.com/lihaoyi/mill/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
+    chmod +x "${DOWNLOAD_FILE}"
+    mkdir -p "${MILL_DOWNLOAD_PATH}"
+    mv "${DOWNLOAD_FILE}" "${MILL}"
 
-  unset DOWNLOAD_FILE
-  unset DOWNLOAD_SUFFIX
+    unset DOWNLOAD_FILE
+    unset DOWNLOAD_SUFFIX
+  fi
 fi
 
 unset MILL_DOWNLOAD_PATH
+unset MILL_OLD_DOWNLOAD_PATH
+unset OLD_MILL
 unset MILL_VERSION
 
 exec $MILL "$@"
