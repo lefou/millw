@@ -67,6 +67,23 @@ you can just place a copy of the script as `millw` in your project root director
 You should change the `DEFAULT_MILL_VERSION` variable in that script to the correct version you want to use
 and add the file under version control.
 
+=== Add a target to update the `millw` script with mill
+
+[source,scala]
+----
+/**
+ * Update the millw script.
+ */
+def millw() = T.command {
+  val target = mill.modules.Util.download("https://raw.githubusercontent.com/lefou/millw/master/millw")
+  val millw = build.millSourcePath / "millw"
+  os.copy.over(target.path, millw)
+  os.perms.set(millw, os.perms(millw) + PosixFilePermission.OWNER_EXECUTE)
+  target
+}
+----
+
+
 == License
 
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
