@@ -1,5 +1,7 @@
 = Mill Wrapper Script
 :mill-version: 0.5.0
+:toc:
+:toc-placement: preamble
 
 Small script to automatically fetch and execute mill build tool.
 
