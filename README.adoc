@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:mill-version: 0.5.0
+:mill-version: 0.6.1
 :toc:
 :toc-placement: preamble
 
@@ -91,6 +91,10 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.3.1 - 2020-04-10
+
+* millw.bat: Quote mill command to support directories with spaces
 
 === millw 0.3.0 - 2019-12-06
 
