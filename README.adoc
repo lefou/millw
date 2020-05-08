@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:mill-version: 0.6.1
+:mill-version: 0.6.2
 :toc:
 :toc-placement: preamble
 
@@ -64,7 +64,7 @@ sh $ echo -n "{mill-version}" > .mill-version
 === As a wrapper script in your project
 
 To make the start for others easier or to always have the correct mill version in your CI environmentfootnote:[Continuous Integration environment],
-you can just place a copy of the script as `millw` in your project root directory.
+you can just place a copy of the script as `millw` (for Windows `millw.bat`) in your project root directory.
 
 You should change the `DEFAULT_MILL_VERSION` variable in that script to the correct version you want to use
 and add the file under version control.
@@ -91,6 +91,10 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.3.2 - 2020-05-09
+
+* millw.bat: Fixed handling and stripping of `--mill-version` parameter before calling mill
 
 === millw 0.3.1 - 2020-04-10
 
