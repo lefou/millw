@@ -55,7 +55,7 @@ Istead of installing mill, you can just place the script into you local `$HOME/b
 
 If you need a special mill version in a project directory, just place a `.mill-version` file with the best mill version.
 
-.Example: setting mill 0.3.6 as best local mill version
+.Example: setting mill {mill-version} as best local mill version
 [source,sh,subs="attributes,verbatim"]
 ----
 sh $ echo -n "{mill-version}" > .mill-version
