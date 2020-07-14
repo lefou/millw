@@ -92,6 +92,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.3 - 2020-07-14
+
+* millw: Fixed fetching of latest mill version
+
 === millw 0.3.2 - 2020-05-09
 
 * millw.bat: Fixed handling and stripping of `--mill-version` parameter before calling mill
