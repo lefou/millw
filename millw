@@ -61,7 +61,7 @@ if [ "x${MILL_VERSION}" = "x" ] ; then
   if [ "x${MILL_VERSION}" = "x" ] ; then
     # we don't know a current latest version
     echo "Retrieving latest mill version ..."
-    LANG=C curl -s -i -f -I https://github.com/lihaoyi/mill/releases/latest 2> /dev/null  | grep Location: | sed s'/^.*tag\///' | tr -d '\r\n' > "${MILL_DOWNLOAD_PATH}/.latest" 
+    LANG=C curl -s -i -f -I https://github.com/lihaoyi/mill/releases/latest 2> /dev/null  | grep --ignore-case Location: | sed s'/^.*tag\///' | tr -d '\r\n' > "${MILL_DOWNLOAD_PATH}/.latest" 
     MILL_VERSION="$(head -n 1 ${MILL_DOWNLOAD_PATH}/.latest 2> /dev/null)"
   fi
 
