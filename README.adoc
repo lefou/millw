@@ -10,6 +10,10 @@ Small script to automatically fetch and execute mill build tool.
 `millw` is a small wrapper script around mill and works almost identical to mill.
 It automatically downloads the correct mill version (into `${XDG_CACHE_DIR}/mill/download` or `~/.cache/mill/download`).
 
+I recommend to rename the tool to just `mill`.
+It is designed to be a drop-in replacement for the official mill binary.
+The project name and also the script name was primarily choosen to be `millw` to disambiguate references.
+
 The mill version to be used will be determined by the following steps.
 The search ends, after the first step that results in a version.
 
