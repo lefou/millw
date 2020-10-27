@@ -92,6 +92,11 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.4 - 2020-10-27
+
+* millw.bat: Fixed download URL to support snapshot versions of mill
+* millw: Support running/downloading when used with Git Bash under Windows 10
+
 === millw 0.3.3 - 2020-07-14
 
 * millw: Fixed fetching of latest mill version
