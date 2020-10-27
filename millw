@@ -77,7 +77,7 @@ fi
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
 # If not already downloaded, download it
-if [ ! -x "${MILL}" ] ; then
+if [ ! -s "${MILL}" ] ; then
   
   # support old non-XDG download dir
   MILL_OLD_DOWNLOAD_PATH="${HOME}/.mill/download"
