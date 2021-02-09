@@ -62,15 +62,22 @@ if not exist "%MILL%" (
     rem there seems to be no way to generate a unique temporary file path (on native Windows)
     set DOWNLOAD_FILE=%MILL%.tmp
 
+    set DOWNLOAD_URL=https://github.com/lihaoyi/mill/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+
     echo Downloading mill %MILL_VERSION% from https://github.com/lihaoyi/mill/releases ...
 
+    if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
     rem curl is bundled with recent Windows 10
     rem but I don't think we can expect all the users to have it in 2019
-    rem bitadmin seems to be available on Windows 7
-    rem without /dynamic, github returns 403
-    rem bitadmin is sometimes needlessly slow but it looks better with /priority foreground
-    if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
-    bitsadmin /transfer millDownloadJob /dynamic /priority foreground "https://github.com/lihaoyi/mill/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!" "!DOWNLOAD_FILE!"
+    where /Q curl
+    if %ERRORLEVEL% EQU 0 (
+        curl -L "!DOWNLOAD_URL!" -o "!DOWNLOAD_FILE!"
+    ) else (
+        rem bitsadmin seems to be available on Windows 7
+        rem without /dynamic, github returns 403
+        rem bitsadmin is sometimes needlessly slow but it looks better with /priority foreground
+        bitsadmin /transfer millDownloadJob /dynamic /priority foreground "!DOWNLOAD_URL!" "!DOWNLOAD_FILE!"
+    )
     if not exist "!DOWNLOAD_FILE!" (
         echo Could not download mill %MILL_VERSION%
         exit /b 1
