@@ -14,7 +14,7 @@ rem setlocal seems to be unavailable on Windows 95/98/ME
 rem but I don't think we need to support them in 2019
 setlocal enabledelayedexpansion
 
-set "DEFAULT_MILL_VERSION=0.5.0"
+set "DEFAULT_MILL_VERSION=0.9.5"
 
 rem %~1% removes surrounding quotes
 if [%~1%]==[--mill-version] (
