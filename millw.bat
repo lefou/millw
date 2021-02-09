@@ -73,7 +73,7 @@ if not exist "%MILL%" (
     bitsadmin /transfer millDownloadJob /dynamic /priority foreground "https://github.com/lihaoyi/mill/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!" "!DOWNLOAD_FILE!"
     if not exist "!DOWNLOAD_FILE!" (
         echo Could not download mill %MILL_VERSION%
-        exit 1
+        exit /b 1
     )
 
     move /y "!DOWNLOAD_FILE!" "%MILL%"
