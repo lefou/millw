@@ -1,9 +1,10 @@
 = Mill Wrapper Script
 :mill-version: 0.6.2
+:mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
 
-Small script to automatically fetch and execute mill build tool.
+Small script to automatically fetch and execute {mill-url}[mill build tool].
 
 == How it works
 

@@ -16,6 +16,8 @@ setlocal enabledelayedexpansion
 
 set "DEFAULT_MILL_VERSION=0.9.5"
 
+set "MILL_REPO_URL=https://github.com/com-lihaoyi/mill"
+
 rem %~1% removes surrounding quotes
 if [%~1%]==[--mill-version] (
     rem shift command doesn't work within parentheses
@@ -25,7 +27,7 @@ if [%~1%]==[--mill-version] (
     ) else (
         echo You specified --mill-version without a version.
         echo Please provide a version that matches one provided on
-        echo https://github.com/lihaoyi/mill/releases
+        echo %MILL_REPO_URL%/releases
         exit /b 1
     )
 )
@@ -62,9 +64,9 @@ if not exist "%MILL%" (
     rem there seems to be no way to generate a unique temporary file path (on native Windows)
     set DOWNLOAD_FILE=%MILL%.tmp
 
-    set DOWNLOAD_URL=https://github.com/lihaoyi/mill/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+    set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
 
-    echo Downloading mill %MILL_VERSION% from https://github.com/lihaoyi/mill/releases ...
+    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ...
 
     if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
     rem curl is bundled with recent Windows 10
@@ -91,6 +93,7 @@ if not exist "%MILL%" (
 
 set MILL_DOWNLOAD_PATH=
 set MILL_VERSION=
+set MILL_REPO_URL=
 
 set MILL_PARAMS=%*
 
