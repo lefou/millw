@@ -97,6 +97,12 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.5 - 2021-03-01
+
+* Updated mill repository URLs (mill repo has moved)
+* millw.bat: script exit does not exit the command shell
+* millw.bat: use curl if present, otherwise fall back to bitsadmin
+
 === millw 0.3.4 - 2020-10-27
 
 * millw.bat: Fixed download URL to support snapshot versions of mill
