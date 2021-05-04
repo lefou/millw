@@ -54,7 +54,11 @@ if [ "x${MILL_VERSION}" = "x" ] ; then
   echo "You should provide a version via '.mill-version' file or --mill-version option."
 
   mkdir -p "${MILL_DOWNLOAD_PATH}"
-  LANG=C touch -d '1 hour ago' "${MILL_DOWNLOAD_PATH}/.expire_latest"
+  LANG=C touch -d '1 hour ago' "${MILL_DOWNLOAD_PATH}/.expire_latest" || (
+    # we might be on OSX or BSD which don't have -d option for touch
+    # but probably a -A [-][[hh]mm]SS
+    touch "${MILL_DOWNLOAD_PATH}/.expire_latest"; touch -A -010000 "${MILL_DOWNLOAD_PATH}/.expire_latest"
+  )
   if [ "${MILL_DOWNLOAD_PATH}/.latest" -nt "${MILL_DOWNLOAD_PATH}/.expire_latest" ] ; then
     # we know a current latest version
     MILL_VERSION="$(head -n 1 ${MILL_DOWNLOAD_PATH}/.latest 2> /dev/null)"
