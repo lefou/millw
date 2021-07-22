@@ -97,6 +97,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.6 - 2021-07-22
+
+* millw: Support non-GNU touch command, e.g. on BSD and OSX
+
 === millw 0.3.5 - 2021-03-01
 
 * Updated mill repository URLs (mill repo has moved)
