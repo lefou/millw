@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:mill-version: 0.6.2
+:mill-version: 0.9.9
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -96,6 +96,10 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.3.7 - 2021-08-26
+
+* Write messages from the wrapper script to STDERR
 
 === millw 0.3.6 - 2021-07-22
 
