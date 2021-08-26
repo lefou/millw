@@ -25,9 +25,9 @@ if [%~1%]==[--mill-version] (
         set MILL_VERSION=%~2%
         set "STRIP_VERSION_PARAMS=true"
     ) else (
-        echo You specified --mill-version without a version.
-        echo Please provide a version that matches one provided on
-        echo %MILL_REPO_URL%/releases
+        echo You specified --mill-version without a version. 1>&2
+        echo Please provide a version that matches one provided on 1>&2
+        echo %MILL_REPO_URL%/releases 1>&2
         exit /b 1
     )
 )
@@ -66,7 +66,7 @@ if not exist "%MILL%" (
 
     set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
 
-    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ...
+    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ...1>&2
 
     if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
     rem curl is bundled with recent Windows 10
@@ -81,7 +81,7 @@ if not exist "%MILL%" (
         bitsadmin /transfer millDownloadJob /dynamic /priority foreground "!DOWNLOAD_URL!" "!DOWNLOAD_FILE!"
     )
     if not exist "!DOWNLOAD_FILE!" (
-        echo Could not download mill %MILL_VERSION%
+        echo Could not download mill %MILL_VERSION% 1>&2
         exit /b 1
     )
 
