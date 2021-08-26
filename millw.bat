@@ -66,7 +66,7 @@ if not exist "%MILL%" (
 
     set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
 
-    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ...1>&2
+    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ... 1>&2
 
     if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
     rem curl is bundled with recent Windows 10
