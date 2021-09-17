@@ -111,7 +111,8 @@ if [ ! -s "${MILL}" ] ; then
     DOWNLOAD_FILE=$(mktemp mill.XXXX)
     # TODO: handle command not found
     echo "Downloading mill ${MILL_VERSION} from ${MILL_REPO_URL}/releases ..." 1>&2
-    curl -L -o "${DOWNLOAD_FILE}" "${MILL_REPO_URL}/releases/download/${MILL_VERSION%%-*}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
+    MILL_VERSION_TAG=$(echo $MILL_VERSION | sed 's/\([^-]+\)\(-M[0-9]+\)?\(-.*\)?/\1\2/')
+    curl -L -o "${DOWNLOAD_FILE}" "${MILL_REPO_URL}/releases/download/${MILL_VERSION_TAG}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
     chmod +x "${DOWNLOAD_FILE}"
     mkdir -p "${MILL_DOWNLOAD_PATH}"
     mv "${DOWNLOAD_FILE}" "${MILL}"
@@ -125,6 +126,7 @@ unset MILL_DOWNLOAD_PATH
 unset MILL_OLD_DOWNLOAD_PATH
 unset OLD_MILL
 unset MILL_VERSION
+unset MILL_VERSION_TAG
 unset MILL_REPO_URL
 
 exec $MILL "$@"
