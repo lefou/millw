@@ -97,6 +97,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.8 - 2021-09-17
+
+* Added support for mill milestone (calculate correct download URL)
+
 === millw 0.3.7 - 2021-08-26
 
 * Write messages from the wrapper script to STDERR
