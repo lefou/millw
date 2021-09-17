@@ -58,14 +58,19 @@ if not exist "%MILL%" (
     if [!VERSION_PREFIX!]==[0.4.] set DOWNLOAD_SUFFIX=
     set VERSION_PREFIX=
 
-    for /F "delims=-" %%A in ("!MILL_VERSION!") do (
-        set MILL_BASE_VERSION=%%A
+    for /F "delims=- tokens=1" %%A in ("!MILL_VERSION!") do set MILL_VERSION_BASE=%%A
+    for /F "delims=- tokens=2" %%A in ("!MILL_VERSION!") do set MILL_VERSION_MILESTONE=%%A
+	set VERSION_MILESTONE_START=!MILL_VERSION_MILESTONE:~0,1!
+    if [!VERSION_MILESTONE_START!]==[M] (
+        set MILL_VERSION_TAG="!MILL_VERSION_BASE!-!MILL_VERSION_MILESTONE!"
+    ) else (
+        set MILL_VERSION_TAG=!MILL_VERSION_BASE!
     )
 
     rem there seems to be no way to generate a unique temporary file path (on native Windows)
     set DOWNLOAD_FILE=%MILL%.tmp
 
-    set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_BASE_VERSION!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+    set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_VERSION_TAG!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
 
     echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ... 1>&2
 
