@@ -108,7 +108,7 @@ if [ ! -s "${MILL}" ] ; then
     esac
     unset VERSION_PREFIX
 
-    DOWNLOAD_FILE=$(mktemp mill.XXXX)
+    DOWNLOAD_FILE=$(mktemp mill.XXXXXX)
     # TODO: handle command not found
     echo "Downloading mill ${MILL_VERSION} from ${MILL_REPO_URL}/releases ..." 1>&2
     MILL_VERSION_TAG=$(echo $MILL_VERSION | sed 's/\([^-]+\)\(-M[0-9]+\)?\(-.*\)?/\1\2/')
