@@ -97,6 +97,11 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.3.9 - 2021-11-17
+
+* Use 6 digits for mktemp
+* Fixed download URL for snapshot releases
+
 === millw 0.3.8 - 2021-09-17
 
 * Added support for mill milestones (calculate correct download URL), fixes issues with mill 0.10.0-M2
