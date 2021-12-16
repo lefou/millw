@@ -32,7 +32,7 @@ sh $ mill --mill-version {mill-version} --disable-ticker version
 .Example
 [source,sh,subs="attributes,verbatim"]
 ----
-sh $ MILL_VERSION mill --disable-ticket version
+sh $ MILL_VERSION mill --disable-ticker version
 {mill-version}
 ----
 
