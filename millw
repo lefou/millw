@@ -19,7 +19,7 @@ set -e
 MILL_REPO_URL="https://github.com/com-lihaoyi/mill"
 
 if [ "x${CURL_CMD}" = "x" ] ; then
-  CURL_CMD=curl
+  CURL_CMD=curl -f
 fi
 
 # Explicit commandline argument takes precedence over all other methods
