@@ -97,6 +97,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.4.0 - 2021-12-22
+
+* Use curl with --force options to make millw more robust against download errors
+
 === millw 0.3.9 - 2021-11-17
 
 * Use 6 digits for mktemp
