@@ -94,6 +94,37 @@ fi
 
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
+try_to_use_system_mill() {
+  MILL_IN_PATH=$(command -v mill)
+
+  if [ -z "${MILL_IN_PATH}" ]; then
+    return
+  fi
+
+  UNIVERSAL_SCRIPT_MAGIC="@ 2>/dev/null # 2>nul & echo off & goto BOF"
+
+  if ! head -c 128 "${MILL_IN_PATH}" | grep -qF "${UNIVERSAL_SCRIPT_MAGIC}"; then
+    echo "Could not determine mill version of ${MILL_IN_PATH}, as it does not start with the universal script magic2" 1>&2
+    return
+  fi
+
+  # Roughly the size of the universal script.
+  MILL_VERSION_SEARCH_RANGE="2403"
+  MILL_IN_PATH_VERSION=$(head -c "${MILL_VERSION_SEARCH_RANGE}" "${MILL_IN_PATH}" |\
+                         sed -n 's/^.*-DMILL_VERSION=\([^\s]*\) .*$/\1/p' |\
+                         head -n 1)
+
+  if [ -z "${MILL_IN_PATH_VERSION}" ]; then
+    echo "Could not determine mill version, even though ${MILL_IN_PATH} has the universal script magic" 1>&2
+    return
+  fi
+
+  if [ "${MILL_IN_PATH_VERSION}" = "${MILL_VERSION}" ]; then
+    MILL="${MILL_IN_PATH}"
+  fi
+}
+try_to_use_system_mill
+
 # If not already downloaded, download it
 if [ ! -s "${MILL}" ] ; then
 
