@@ -41,8 +41,11 @@ fi
 
 # If not already set, read .mill-version file
 if [ "x${MILL_VERSION}" = "x" ] ; then
-  if [ -f ".mill-version" ] ; then
-    MILL_VERSION="$(head -n 1 .mill-version 2> /dev/null)"
+  MILLW_DIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
+  MILLW_VERSION_FILE="${MILLW_DIR}"/.mill-version
+
+  if [ -f "${MILLW_VERSION_FILE}" ] ; then
+    MILL_VERSION=$(head -n 1 "${MILLW_VERSION_FILE}" 2> /dev/null)
   fi
 fi
 
