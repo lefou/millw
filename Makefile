@@ -1,0 +1,3 @@
+.PHONY:
+check:
+	shellcheck millw
