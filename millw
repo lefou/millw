@@ -95,7 +95,7 @@ fi
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
 try_to_use_system_mill() {
-  MILL_IN_PATH=$(command -v mill)
+  MILL_IN_PATH=$(command -v mill || true)
 
   if [ -z "${MILL_IN_PATH}" ]; then
     return
