@@ -46,7 +46,7 @@ if [ -z "${MILL_VERSION}" ] ; then
   fi
 fi
 
-if [ "x${XDG_CACHE_HOME}" != "x" ] ; then
+if [ -n "${XDG_CACHE_HOME}" ] ; then
   MILL_DOWNLOAD_PATH="${XDG_CACHE_HOME}/mill/download"
 else
   MILL_DOWNLOAD_PATH="${HOME}/.cache/mill/download"
