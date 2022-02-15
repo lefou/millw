@@ -104,7 +104,9 @@ try_to_use_system_mill() {
   UNIVERSAL_SCRIPT_MAGIC="@ 2>/dev/null # 2>nul & echo off & goto BOF"
 
   if ! head -c 128 "${MILL_IN_PATH}" | grep -qF "${UNIVERSAL_SCRIPT_MAGIC}"; then
-    echo "Could not determine mill version of ${MILL_IN_PATH}, as it does not start with the universal script magic2" 1>&2
+    if [ -n "${MILLW_VERBOSE}" ]; then
+      echo "Could not determine mill version of ${MILL_IN_PATH}, as it does not start with the universal script magic2" 1>&2
+    fi
     return
   fi
 
