@@ -97,6 +97,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.4.2 - 2022-02-15
+
+* Don't be verbose when system mill version can't detected
+
 === millw 0.4.1 - 2022-02-15
 
 * Removed bash specifics from shell script
