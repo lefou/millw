@@ -5,14 +5,14 @@
 # If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 #
 # Project page: https://github.com/lefou/millw
-# Script Version: 0.4.0
+# Script Version: 0.4.1
 #
 # If you want to improve this script, please also contribute your changes back!
 #
 # Licensed under the Apache License, Version 2.0
 
 
-DEFAULT_MILL_VERSION=0.9.10
+DEFAULT_MILL_VERSION=0.10.0
 
 set -e
 

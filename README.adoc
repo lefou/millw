@@ -97,6 +97,13 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.4.1 - 2022-02-15
+
+* Removed bash specifics from shell script
+* Cleaned up shell script
+* Use system-installed  mill version if possible
+* Added CI job to run some checks
+
 === millw 0.4.0 - 2021-12-22
 
 * Use curl with --force options to make millw more robust against download errors
