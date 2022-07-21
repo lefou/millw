@@ -43,6 +43,8 @@ fi
 if [ -z "${MILL_VERSION}" ] ; then
   if [ -f ".mill-version" ] ; then
     MILL_VERSION="$(head -n 1 .mill-version 2> /dev/null)"
+  elif [ -f ".config/mill-version" ] ; then
+    MILL_VERSION="$(head -n 1 .config/mill-version 2> /dev/null)"
   fi
 fi
 
