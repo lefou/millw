@@ -11,10 +11,12 @@
 #
 # Licensed under the Apache License, Version 2.0
 
-
-DEFAULT_MILL_VERSION=0.10.0
-
 set -e
+
+if [ -z "${DEFAULT_MILL_VERSION}" ] ; then
+  DEFAULT_MILL_VERSION=0.10.7
+fi
+
 
 MILL_REPO_URL="https://github.com/com-lihaoyi/mill"
 
