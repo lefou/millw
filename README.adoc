@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:mill-version: 0.9.9
+:example-mill-version: 0.10.7
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -23,8 +23,8 @@ The search ends, after the first step that results in a version.
 .Example
 [source,sh,subs="attributes,verbatim"]
 ----
-sh $ mill --mill-version {mill-version} --disable-ticker version
-{mill-version}
+sh $ mill --mill-version {example-mill-version} --disable-ticker version
+{example-mill-version}
 ----
 
 * If the environment variable `MILL_VERSION` is defined, its value will be used.
@@ -32,8 +32,8 @@ sh $ mill --mill-version {mill-version} --disable-ticker version
 .Example
 [source,sh,subs="attributes,verbatim"]
 ----
-sh $ MILL_VERSION mill --disable-ticker version
-{mill-version}
+sh $ MILL_VERSION={example-mill-version} mill --disable-ticker version
+{example-mill-version}
 ----
 
 * If there is a file `.mill-version` in the working directory, its content will be used as mill version.
@@ -43,9 +43,9 @@ sh $ MILL_VERSION mill --disable-ticker version
 
 [source,sh,subs="attributes,verbatim"]
 ----
-sh $ echo -n "{mill-version}" > .mill-version
+sh $ echo -n "{example-mill-version}" > .mill-version
 sh $ mill --disable-ticker version
-{mill-version}
+{example-mill-version}
 ----
 
 * If there is a file `.config/mill-version`, its content will be used as mill version.
@@ -64,10 +64,10 @@ Istead of installing mill, you can just place the script into you local `$HOME/b
 
 If you need a special mill version in a project directory, just place a `.mill-version` file with the best mill version.
 
-.Example: setting mill {mill-version} as best local mill version
+.Example: setting mill {example-mill-version} as best local mill version
 [source,sh,subs="attributes,verbatim"]
 ----
-sh $ echo -n "{mill-version}" > .mill-version
+sh $ echo -n "{example-mill-version}" > .mill-version
 ----
 
 === As a wrapper script in your project
@@ -100,6 +100,11 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.3 - 2022-09-07
+
+* Support reading the version from local `.config/mill-version` file
+* Read a `DEFAULT_MILL_VERSION` env variable before falling back to hardcoded default version
 
 === millw 0.4.2 - 2022-02-15
 
