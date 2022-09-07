@@ -27,7 +27,7 @@ sh $ mill --mill-version {mill-version} --disable-ticker version
 {mill-version}
 ----
 
-* else if the environment variable `MILL_VERSION` is defined, it's value will be used.
+* If the environment variable `MILL_VERSION` is defined, it's value will be used.
 +
 .Example
 [source,sh,subs="attributes,verbatim"]
@@ -36,7 +36,7 @@ sh $ MILL_VERSION mill --disable-ticker version
 {mill-version}
 ----
 
-* else if there is a file `.mill-version` in the working directory, it's content will be used as mill version.
+* If there is a file `.mill-version` in the working directory, it's content will be used as mill version.
   The file must have only a mill version as content, no additional content or comments are supported.
 +
 .Example
@@ -48,9 +48,11 @@ sh $ mill --disable-ticker version
 {mill-version}
 ----
 
-* else if there is a file `.config/mill-version`, it's content will be used as mill version.
+* If there is a file `.config/mill-version`, it's content will be used as mill version.
 
 * The latest mill release available from the Github release pages will be used.
+
+* If the environment variable `DEFAULT_MILL_VERSION` is set, its value will be used.
 
 * The values of the `DEFAULT_MILL_VERSION` variable inside the script will be used.
 
