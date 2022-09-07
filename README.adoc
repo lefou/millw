@@ -48,6 +48,8 @@ sh $ mill --disable-ticker version
 {mill-version}
 ----
 
+* else if there is a file `.config/mill-version`, it's content will be used as mill version.
+
 * The latest mill release available from the Github release pages will be used.
 
 * The values of the `DEFAULT_MILL_VERSION` variable inside the script will be used.
