@@ -119,4 +119,4 @@ if defined STRIP_VERSION_PARAMS (
     )
 )
 
-"%MILL%" %MILL_PARAMS%
+"%MILL%" -D "mill.main.cli=%0" %MILL_PARAMS%
