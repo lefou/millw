@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:example-mill-version: 0.10.7
+:example-mill-version: 0.10.8
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -100,6 +100,10 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.4 - 2022-11-04
+
+* Feed the currently used mill executable to the Mill process (uses `mill.main.cli` system property) and support `MILL_MAIN_CLI` env variable to override the value
 
 === millw 0.4.3 - 2022-09-07
 
