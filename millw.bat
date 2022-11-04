@@ -110,6 +110,10 @@ set MILL_REPO_URL=
 
 set MILL_PARAMS=%*
 
+if [!MILL_MAIN_CLI!]==[] (
+    set "MILL_MAIN_CLI=%0"
+)
+
 if defined STRIP_VERSION_PARAMS (
     for /f "tokens=1-2*" %%a in ("%*") do (
         rem strip %%a - It's the "--mill-version" option.
@@ -119,4 +123,4 @@ if defined STRIP_VERSION_PARAMS (
     )
 )
 
-"%MILL%" -D "mill.main.cli=%0" %MILL_PARAMS%
+"%MILL%" -D "mill.main.cli=%MILL_MAIN_CLI%" %MILL_PARAMS%
