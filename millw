@@ -169,6 +169,13 @@ if [ -z "$MILL_MAIN_CLI" ] ; then
   MILL_MAIN_CLI="${0}"
 fi
 
+MILL_FIRST_ARG=""
+if [ "$1" = "--bsp" -o "$1" = "-i" -o "$1" = "--interactive" -o "$1" = "--no-server" -o "$1" = "--repl" -o "$1" = "--help" ] ; then
+  # Need to preserve the first position of those listed options
+  MILL_FIRST_ARG=$1
+  shift
+fi
+
 unset MILL_DOWNLOAD_PATH
 unset MILL_OLD_DOWNLOAD_PATH
 unset OLD_MILL
@@ -176,4 +183,4 @@ unset MILL_VERSION
 unset MILL_VERSION_TAG
 unset MILL_REPO_URL
 
-exec "${MILL}" -D "mill.main.cli=${MILL_MAIN_CLI}" "$@"
+exec "${MILL}" $MILL_FIRST_ARG -D "mill.main.cli=${MILL_MAIN_CLI}" "$@"
