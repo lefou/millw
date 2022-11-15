@@ -120,23 +120,23 @@ if [%~1%]==[--bsp] (
 ) else (
   if [%~1%]==[-i] (
     set MILL_FIRST_ARG=%1%
-    shift
+    set "STRIP_FIRST_ARG=true"
   ) else (
     if [%~1%]==[--interactive] (
       set MILL_FIRST_ARG=%1%
-      shift
+      set "STRIP_FIRST_ARG=true"
     ) else (
       if [%~1%]==[--no-server] (
         set MILL_FIRST_ARG=%1%
-        shift
+        set "STRIP_FIRST_ARG=true"
       ) else (
         if [%~1%]==[--repl] (
           set MILL_FIRST_ARG=%1%
-          shift
+          set "STRIP_FIRST_ARG=true"
         ) else (
           if [%~1%]==[--help] (
             set MILL_FIRST_ARG=%1%
-            shift
+            set "STRIP_FIRST_ARG=true"
           )
         )
       )
@@ -146,13 +146,27 @@ if [%~1%]==[--bsp] (
 
 set MILL_PARAMS=%*
 
-if defined STRIP_VERSION_PARAMS (
+if defined STRIP_FIRST_ARG (
+  if defined STRIP_VERSION_PARAMS (
+    for /f "tokens=1-3*" %%a in ("%*") do (
+        set MILL_PARAMS=%%d
+    )
+  ) else (
+    for /f "tokens=1*" %%a in ("%*") do (
+      rem strip %%a - It's the first arg
+      rem keep  %%c - It's the remaining options.
+      set MILL_PARAMS=%%b
+    )
+  )
+) else (
+  if defined STRIP_VERSION_PARAMS (
     for /f "tokens=1-2*" %%a in ("%*") do (
         rem strip %%a - It's the "--mill-version" option.
         rem strip %%b - it's the version number that comes after the option.
         rem keep  %%c - It's the remaining options.
         set MILL_PARAMS=%%c
     )
+  )
 )
 
 "%MILL%" $MILL_FIRST_ARG% -D "mill.main.cli=%MILL_MAIN_CLI%" %MILL_PARAMS%
