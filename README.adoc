@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:example-mill-version: 0.10.8
+:example-mill-version: 0.10.9
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -100,6 +100,10 @@ def millw() = T.command {
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.5 - 2022-11-15
+
+* Fixed issues with running Mill in `--repl`, `--no-server` or `--bsp` mode by preserving the first position of those essential Mill options
 
 === millw 0.4.4 - 2022-11-04
 
