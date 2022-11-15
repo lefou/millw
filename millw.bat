@@ -108,11 +108,43 @@ set MILL_DOWNLOAD_PATH=
 set MILL_VERSION=
 set MILL_REPO_URL=
 
-set MILL_PARAMS=%*
-
 if [!MILL_MAIN_CLI!]==[] (
     set "MILL_MAIN_CLI=%0"
 )
+
+REM Need to preserve the first position of those listed options
+set MILL_FIRST_ARG=
+if [%~1%]==[--bsp] (
+  set MILL_FIRST_ARG=%1%
+  shift
+) else (
+  if [%~1%]==[-i] (
+    set MILL_FIRST_ARG=%1%
+    shift
+  ) else (
+    if [%~1%]==[--interactive] (
+      set MILL_FIRST_ARG=%1%
+      shift
+    ) else (
+      if [%~1%]==[--no-server] (
+        set MILL_FIRST_ARG=%1%
+        shift
+      ) else (
+        if [%~1%]==[--repl] (
+          set MILL_FIRST_ARG=%1%
+          shift
+        ) else (
+          if [%~1%]==[--help] (
+            set MILL_FIRST_ARG=%1%
+            shift
+          )
+        )
+      )
+    )
+  )
+)
+
+set MILL_PARAMS=%*
 
 if defined STRIP_VERSION_PARAMS (
     for /f "tokens=1-2*" %%a in ("%*") do (
@@ -123,4 +155,4 @@ if defined STRIP_VERSION_PARAMS (
     )
 )
 
-"%MILL%" -D "mill.main.cli=%MILL_MAIN_CLI%" %MILL_PARAMS%
+"%MILL%" $MILL_FIRST_ARG% -D "mill.main.cli=%MILL_MAIN_CLI%" %MILL_PARAMS%
