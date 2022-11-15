@@ -23,17 +23,23 @@ set "MILL_REPO_URL=https://github.com/com-lihaoyi/mill"
 
 rem %~1% removes surrounding quotes
 if [%~1%]==[--mill-version] (
+  if not [%~2%]==[] (
+    set MILL_VERSION=%~2%
     rem shift command doesn't work within parentheses
-    if not [%~2%]==[] (
-        set MILL_VERSION=%~2%
-        set "STRIP_VERSION_PARAMS=true"
-    ) else (
-        echo You specified --mill-version without a version. 1>&2
-        echo Please provide a version that matches one provided on 1>&2
-        echo %MILL_REPO_URL%/releases 1>&2
-        exit /b 1
-    )
+    set "STRIP_VERSION_PARAMS=true"
+  ) else (
+    echo You specified --mill-version without a version. 1>&2
+    echo Please provide a version that matches one provided on 1>&2
+    echo %MILL_REPO_URL%/releases 1>&2
+    exit /b 1
+  )
 )
+
+if not defined STRIP_VERSION_PARAMS GOTO AfterStripVersionParams
+rem strip the: --mill-version {version}
+shift
+shift
+:AfterStripVersionParams
 
 if [!MILL_VERSION!]==[] (
   if exist .mill-version (
@@ -112,7 +118,7 @@ if [!MILL_MAIN_CLI!]==[] (
     set "MILL_MAIN_CLI=%0"
 )
 
-REM Need to preserve the first position of those listed options
+rem Need to preserve the first position of those listed options
 set MILL_FIRST_ARG=
 if [%~1%]==[--bsp] (
   set MILL_FIRST_ARG=%1%
@@ -120,23 +126,18 @@ if [%~1%]==[--bsp] (
 ) else (
   if [%~1%]==[-i] (
     set MILL_FIRST_ARG=%1%
-    set "STRIP_FIRST_ARG=true"
   ) else (
     if [%~1%]==[--interactive] (
       set MILL_FIRST_ARG=%1%
-      set "STRIP_FIRST_ARG=true"
     ) else (
       if [%~1%]==[--no-server] (
         set MILL_FIRST_ARG=%1%
-        set "STRIP_FIRST_ARG=true"
       ) else (
         if [%~1%]==[--repl] (
           set MILL_FIRST_ARG=%1%
-          set "STRIP_FIRST_ARG=true"
         ) else (
           if [%~1%]==[--help] (
             set MILL_FIRST_ARG=%1%
-            set "STRIP_FIRST_ARG=true"
           )
         )
       )
@@ -144,29 +145,8 @@ if [%~1%]==[--bsp] (
   )
 )
 
-set MILL_PARAMS=%*
+if [!MILL_FIRST_ARG!]==[] goto :AfterStripFirstArg
+shift
+:AfterStripFirstArg
 
-if defined STRIP_FIRST_ARG (
-  if defined STRIP_VERSION_PARAMS (
-    for /f "tokens=1-3*" %%a in ("%*") do (
-        set MILL_PARAMS=%%d
-    )
-  ) else (
-    for /f "tokens=1*" %%a in ("%*") do (
-      rem strip %%a - It's the first arg
-      rem keep  %%c - It's the remaining options.
-      set MILL_PARAMS=%%b
-    )
-  )
-) else (
-  if defined STRIP_VERSION_PARAMS (
-    for /f "tokens=1-2*" %%a in ("%*") do (
-        rem strip %%a - It's the "--mill-version" option.
-        rem strip %%b - it's the version number that comes after the option.
-        rem keep  %%c - It's the remaining options.
-        set MILL_PARAMS=%%c
-    )
-  )
-)
-
-"%MILL%" $MILL_FIRST_ARG% -D "mill.main.cli=%MILL_MAIN_CLI%" %MILL_PARAMS%
+"%MILL%" %MILL_FIRST_ARG% -D "mill.main.cli=%MILL_MAIN_CLI%" %*%
