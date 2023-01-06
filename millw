@@ -5,7 +5,7 @@
 # If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 #
 # Project page: https://github.com/lefou/millw
-# Script Version: 0.4.5
+# Script Version: 0.4.6
 #
 # If you want to improve this script, please also contribute your changes back!
 #
@@ -14,7 +14,7 @@
 set -e
 
 if [ -z "${DEFAULT_MILL_VERSION}" ] ; then
-  DEFAULT_MILL_VERSION=0.10.9
+  DEFAULT_MILL_VERSION="0.10.10"
 fi
 
 
