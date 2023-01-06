@@ -44,8 +44,7 @@ shift
 if [!MILL_VERSION!]==[] (
   if exist .mill-version (
       set /p MILL_VERSION=<.mill-version
-  )
-  else (
+  ) else (
     if exist .config\mill-version (
       set /p MILL_VERSION=<.config\mill-version
     )
