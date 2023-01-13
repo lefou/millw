@@ -94,6 +94,11 @@ def millw() = T.command {
 }
 ----
 
+== GitHub release CDN support
+
+In some areas, the network environment makes downloading files from GitHub release very time-consuming. Fortunately,
+some CDN services can speed up GitHub release files. You can use the `GITHUB_RELEASE_CDN` environment variable to add
+a CDN url prefix before the original GitHub release file url to speed up your file downloads!
 
 == License
 

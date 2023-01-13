@@ -18,6 +18,11 @@ if [ -z "${DEFAULT_MILL_VERSION}" ] ; then
 fi
 
 
+if [ -z "${GITHUB_RELEASE_CDN}" ] ; then
+  GITHUB_RELEASE_CDN=""
+fi
+
+
 MILL_REPO_URL="https://github.com/com-lihaoyi/mill"
 
 if [ -z "${CURL_CMD}" ] ; then
@@ -152,10 +157,11 @@ if [ ! -s "${MILL}" ] ; then
     unset VERSION_PREFIX
 
     DOWNLOAD_FILE=$(mktemp mill.XXXXXX)
-    # TODO: handle command not found
-    echo "Downloading mill ${MILL_VERSION} from ${MILL_REPO_URL}/releases ..." 1>&2
     MILL_VERSION_TAG=$(echo $MILL_VERSION | sed -E 's/([^-]+)(-M[0-9]+)?(-.*)?/\1\2/')
-    ${CURL_CMD} -f -L -o "${DOWNLOAD_FILE}" "${MILL_REPO_URL}/releases/download/${MILL_VERSION_TAG}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
+    DOWNLOAD_URL="${GITHUB_RELEASE_CDN}${MILL_REPO_URL}/releases/download/${MILL_VERSION_TAG}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
+    # TODO: handle command not found
+    echo "Downloading mill ${MILL_VERSION} from ${DOWNLOAD_URL} ..." 1>&2
+    ${CURL_CMD} -f -L -o "${DOWNLOAD_FILE}" ${DOWNLOAD_URL}
     chmod +x "${DOWNLOAD_FILE}"
     mkdir -p "${MILL_DOWNLOAD_PATH}"
     mv "${DOWNLOAD_FILE}" "${MILL}"
