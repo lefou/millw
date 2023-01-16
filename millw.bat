@@ -19,6 +19,10 @@ if [!DEFAULT_MILL_VERSION!]==[] (
     set "DEFAULT_MILL_VERSION=0.10.10"
 )
 
+if [!GITHUB_RELEASE_CDN!]==[] (
+    set "GITHUB_RELEASE_CDN="
+)
+
 set "MILL_REPO_URL=https://github.com/com-lihaoyi/mill"
 
 rem %~1% removes surrounding quotes
@@ -82,9 +86,9 @@ if not exist "%MILL%" (
     rem there seems to be no way to generate a unique temporary file path (on native Windows)
     set DOWNLOAD_FILE=%MILL%.tmp
 
-    set DOWNLOAD_URL=%MILL_REPO_URL%/releases/download/!MILL_VERSION_TAG!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+    set DOWNLOAD_URL=!GITHUB_RELEASE_CDN!%MILL_REPO_URL%/releases/download/!MILL_VERSION_TAG!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
 
-    echo Downloading mill %MILL_VERSION% from %MILL_REPO_URL%/releases ... 1>&2
+    echo Downloading mill %MILL_VERSION% from !DOWNLOAD_URL! ... 1>&2
 
     if not exist "%MILL_DOWNLOAD_PATH%" mkdir "%MILL_DOWNLOAD_PATH%"
     rem curl is bundled with recent Windows 10
