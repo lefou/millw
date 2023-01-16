@@ -161,7 +161,7 @@ if [ ! -s "${MILL}" ] ; then
     DOWNLOAD_URL="${GITHUB_RELEASE_CDN}${MILL_REPO_URL}/releases/download/${MILL_VERSION_TAG}/${MILL_VERSION}${DOWNLOAD_SUFFIX}"
     # TODO: handle command not found
     echo "Downloading mill ${MILL_VERSION} from ${DOWNLOAD_URL} ..." 1>&2
-    ${CURL_CMD} -f -L -o "${DOWNLOAD_FILE}" ${DOWNLOAD_URL}
+    ${CURL_CMD} -f -L -o "${DOWNLOAD_FILE}" "${DOWNLOAD_URL}"
     chmod +x "${DOWNLOAD_FILE}"
     mkdir -p "${MILL_DOWNLOAD_PATH}"
     mv "${DOWNLOAD_FILE}" "${MILL}"
