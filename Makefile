@@ -1,6 +1,7 @@
 DOWNLOAD_VERSIONS = 0.6.0 0.7.0 0.8.0 0.10.0 0.11.0-M8 0.11.0
 DOWNLOAD_CHECK_TARGETS = $(addprefix downloadcheck_,$(DOWNLOAD_VERSIONS))
 .PHONY: $(DOWNLOAD_VERSIONS) $(DOWNLOAD_CHECK_TARGETS)
+MILL := ./millw
 
 .PHONY: help # List of targets with descriptions
 help:
@@ -11,7 +12,7 @@ check: shellcheck downloadcheck
 
 .PHONY: clean # Cleanup temporary output files
 clean:
-	rm -rf -- "./out"
+	$(RM) -rf -- "./out"
 
 .PHONY: shellcheck # Check for issues in the shell script
 shellcheck:
@@ -21,5 +22,5 @@ shellcheck:
 downloadcheck: $(DOWNLOAD_CHECK_TARGETS)
 
 $(DOWNLOAD_CHECK_TARGETS):
-	rm -rf -- "./out/mill-worker*"
-	MILL_DOWNLOAD_PATH=./out/download MILL_VERSION=$(subst downloadcheck_,,$@) sh -e -x ./millw -i --help
+	$(RM) -rf -- "./out/mill-worker*"
+	MILL_DOWNLOAD_PATH=./out/download MILL_VERSION=$(subst downloadcheck_,,$@) sh -e -x $(MILL) -i --help
