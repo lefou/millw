@@ -16,7 +16,7 @@ rem but I don't think we need to support them in 2019
 setlocal enabledelayedexpansion
 
 if [!DEFAULT_MILL_VERSION!]==[] (
-    set "DEFAULT_MILL_VERSION=0.10.10"
+    set "DEFAULT_MILL_VERSION=0.11.0"
 )
 
 if [!GITHUB_RELEASE_CDN!]==[] (
@@ -59,19 +59,62 @@ if [!MILL_VERSION!]==[] (
     set MILL_VERSION=%DEFAULT_MILL_VERSION%
 )
 
-set MILL_DOWNLOAD_PATH=%USERPROFILE%\.mill\download
+if [!MILL_DOWNLOAD_PATH!]==[] (
+    set MILL_DOWNLOAD_PATH=%USERPROFILE%\.mill\download
+)
 
 rem without bat file extension, cmd doesn't seem to be able to run it
 set MILL=%MILL_DOWNLOAD_PATH%\!MILL_VERSION!.bat
 
 if not exist "%MILL%" (
     set VERSION_PREFIX=%MILL_VERSION:~0,4%
+    # Since 0.5.0
     set DOWNLOAD_SUFFIX=-assembly
-    if [!VERSION_PREFIX!]==[0.0.] set DOWNLOAD_SUFFIX=
-    if [!VERSION_PREFIX!]==[0.1.] set DOWNLOAD_SUFFIX=
-    if [!VERSION_PREFIX!]==[0.2.] set DOWNLOAD_SUFFIX=
-    if [!VERSION_PREFIX!]==[0.3.] set DOWNLOAD_SUFFIX=
-    if [!VERSION_PREFIX!]==[0.4.] set DOWNLOAD_SUFFIX=
+    # Since 0.11.0
+    set DOWNLOAD_FROM_MAVEN=1
+    if [!VERSION_PREFIX!]==[0.0.] (
+        set DOWNLOAD_SUFFIX=
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.1.] (
+        set DOWNLOAD_SUFFIX=
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.2.] (
+        set DOWNLOAD_SUFFIX=
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.3.] (
+        set DOWNLOAD_SUFFIX=
+        set DOWNLOAD_FROM_MAVEN=0
+   )
+    if [!VERSION_PREFIX!]==[0.4.] (
+        set DOWNLOAD_SUFFIX=
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.5.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.6.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.7.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.8.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    if [!VERSION_PREFIX!]==[0.9.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    set VERSION_PREFIX=%MILL_VERSION:~0,5%
+    if [!VERSION_PREFIX!]==[0.10.] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
+    set VERSION_PREFIX=%MILL_VERSION:~0,8%
+    if [!VERSION_PREFIX!]==[0.11.0-M] (
+        set DOWNLOAD_FROM_MAVEN=0
+    )
     set VERSION_PREFIX=
 
     for /F "delims=- tokens=1" %%A in ("!MILL_VERSION!") do set MILL_VERSION_BASE=%%A
@@ -86,7 +129,11 @@ if not exist "%MILL%" (
     rem there seems to be no way to generate a unique temporary file path (on native Windows)
     set DOWNLOAD_FILE=%MILL%.tmp
 
-    set DOWNLOAD_URL=!GITHUB_RELEASE_CDN!%MILL_REPO_URL%/releases/download/!MILL_VERSION_TAG!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+    if [!DOWNLOAD_FROM_MAVEN]==[1] (
+        set DOWNLOAD_URL=https://repo1.maven.org/maven2/com/lihaoyi/mill-dist/!MILL_VERSION!/mill-dist-!MILL_VERSION!.jar
+    ) else (
+        set DOWNLOAD_URL=!GITHUB_RELEASE_CDN!%MILL_REPO_URL%/releases/download/!MILL_VERSION_TAG!/!MILL_VERSION!!DOWNLOAD_SUFFIX!
+    )
 
     echo Downloading mill %MILL_VERSION% from !DOWNLOAD_URL! ... 1>&2
 
