@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:example-mill-version: 0.10.10
+:example-mill-version: 0.11.0
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -105,6 +105,11 @@ a CDN url prefix before the original GitHub release file url to speed up your fi
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.7 - 2023-06-19
+
+* Download newer Mill versions (`0.11.0+`) from Maven Central
+* Added support for `GITHUB_RELEASE_CDN` variable, to speed up downloads
 
 === millw 0.4.6 - 2023-01-06
 
