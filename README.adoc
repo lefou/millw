@@ -12,9 +12,11 @@ On any platform, you can download the the `millw` (Mac / Linux) or `millw.bat` (
 
 For convenience on Mac and Linux, use your terminal to navigate to the root of your project, then run the following command substituting in the tag of the version you wish to use (see changelog below):
 
----
+.Example
+[source,sh,subs="attributes,verbatim"]
+----
 sh $ curl -L https://raw.githubusercontent.com/lefou/millw/0.4.8/millw > mill && chmod +x mill
----
+----
 
 == How it works
 
