@@ -6,6 +6,16 @@
 
 Small script to automatically fetch and execute {mill-url}[mill build tool].
 
+== Installation
+
+On any platform, you can download the the `millw` (Mac / Linux) or `millw.bat` (Windows) script files found in this repo, into the root of your project. You can then use the script file as a drop-in replacement for Mill.
+
+For convenience on Mac and Linux, use your terminal to navigate to the root of your project, then run the following command substituting in the tag of the version you wish to use (see changelog below):
+
+---
+sh $ curl -L https://raw.githubusercontent.com/lefou/millw/0.4.8/millw > mill && chmod +x mill
+---
+
 == How it works
 
 `millw` is a small wrapper script around mill and works almost identical to mill.
