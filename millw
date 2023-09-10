@@ -106,34 +106,53 @@ fi
 MILL="${MILL_DOWNLOAD_PATH}/${MILL_VERSION}"
 
 try_to_use_system_mill() {
+  if [ "$(uname)" != "Linux" ]; then
+    return 0
+  fi
+
   MILL_IN_PATH="$(command -v mill || true)"
 
   if [ -z "${MILL_IN_PATH}" ]; then
-    return
+    return 0
   fi
 
-  UNIVERSAL_SCRIPT_MAGIC="@ 2>/dev/null # 2>nul & echo off & goto BOF"
+  SYSTEM_MILL_PATH=$(readlink -e "${MILL_IN_PATH}")
+  SYSTEM_MILL_SIZE=$(stat --format=%s "${SYSTEM_MILL_PATH}")
+  SYSTEM_MILL_MTIME=$(stat --format=%y "${SYSTEM_MILL_PATH}")
 
-  if ! head -c 128 "${MILL_IN_PATH}" | grep -qF "${UNIVERSAL_SCRIPT_MAGIC}"; then
-    if [ -n "${MILLW_VERBOSE}" ]; then
-      echo "Could not determine mill version of ${MILL_IN_PATH}, as it does not start with the universal script magic2" 1>&2
+  MILL_USER_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}"/mill
+  if [ ! -d "${MILL_USER_CACHE_DIR}" ]; then
+    mkdir -p "${MILL_USER_CACHE_DIR}"
+  fi
+
+  SYSTEM_MILL_INFO_FILE="${MILL_USER_CACHE_DIR}"/system-mill-info
+  if [ -f "${SYSTEM_MILL_INFO_FILE}" ]; then
+    # shellcheck source=/dev/null
+    . "${SYSTEM_MILL_INFO_FILE}"
+
+    if [ "${SYSTEM_MILL_PATH}" = "${CACHED_SYSTEM_MILL_PATH}" ] \
+           && [ "${SYSTEM_MILL_SIZE}" = "${CACHED_SYSTEM_MILL_SIZE}" ] \
+           && [ "${SYSTEM_MILL_MTIME}" = "${CACHED_SYSTEM_MILL_MTIME}" ]; then
+      if [ "${CACHED_SYSTEM_MILL_VERSION}" = "${MILL_VERSION}" ]; then
+          MILL="${SYSTEM_MILL_PATH}"
+          return 0
+      else
+          return 0
+      fi
     fi
-    return
   fi
 
-  # Roughly the size of the universal script.
-  MILL_VERSION_SEARCH_RANGE="2403"
-  MILL_IN_PATH_VERSION=$(head -c "${MILL_VERSION_SEARCH_RANGE}" "${MILL_IN_PATH}" |\
-                         sed -n 's/^.*-DMILL_VERSION=\([^\s]*\) .*$/\1/p' |\
-                         head -n 1)
+  SYSTEM_MILL_VERSION=$(${SYSTEM_MILL_PATH} --version | head -n1 | sed -n 's/^Mill.*version \(.*\)/\1/p')
 
-  if [ -z "${MILL_IN_PATH_VERSION}" ]; then
-    echo "Could not determine mill version, even though ${MILL_IN_PATH} has the universal script magic" 1>&2
-    return
-  fi
+  cat <<EOF > "${SYSTEM_MILL_INFO_FILE}"
+CACHED_SYSTEM_MILL_PATH="${SYSTEM_MILL_PATH}"
+CACHED_SYSTEM_MILL_VERSION="${SYSTEM_MILL_VERSION}"
+CACHED_SYSTEM_MILL_SIZE="${SYSTEM_MILL_SIZE}"
+CACHED_SYSTEM_MILL_MTIME="${SYSTEM_MILL_MTIME}"
+EOF
 
-  if [ "${MILL_IN_PATH_VERSION}" = "${MILL_VERSION}" ]; then
-    MILL="${MILL_IN_PATH}"
+  if [ "${SYSTEM_MILL_VERSION}" = "${MILL_VERSION}" ]; then
+    MILL="${SYSTEM_MILL_PATH}"
   fi
 }
 try_to_use_system_mill
