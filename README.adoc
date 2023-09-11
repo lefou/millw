@@ -25,7 +25,7 @@ $ curl -L https://raw.githubusercontent.com/lefou/millw/{version}/millw > mill &
 == How it works
 
 `millw` is a small wrapper script around mill and works almost identical to mill.
-It automatically downloads the correct mill version (into `${XDG_CACHE_DIR}/mill/download` or `~/.cache/mill/download`).
+It automatically downloads the correct mill version (into `${XDG_CACHE_HOME}/mill/download` or `~/.cache/mill/download`).
 
 I recommend to rename the tool to just `mill`.
 It is designed to be a drop-in replacement for the official mill binary.
