@@ -125,7 +125,7 @@ try_to_use_system_mill() {
     mkdir -p "${MILL_USER_CACHE_DIR}"
   fi
 
-  SYSTEM_MILL_INFO_FILE="${MILL_USER_CACHE_DIR}"/system-mill-info
+  SYSTEM_MILL_INFO_FILE="${MILL_USER_CACHE_DIR}/system-mill-info"
   if [ -f "${SYSTEM_MILL_INFO_FILE}" ]; then
     CACHED_SYSTEM_MILL_PATH=$(sed -n '1p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
     CACHED_SYSTEM_MILL_VERSION=$(sed -n '2p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
