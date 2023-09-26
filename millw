@@ -55,12 +55,10 @@ if [ -z "${MILL_VERSION}" ] ; then
   fi
 fi
 
+MILL_USER_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}/mill"
+
 if [ -z "${MILL_DOWNLOAD_PATH}" ] ; then
-  if [ -n "${XDG_CACHE_HOME}" ] ; then
-    MILL_DOWNLOAD_PATH="${XDG_CACHE_HOME}/mill/download"
-  else
-    MILL_DOWNLOAD_PATH="${HOME}/.cache/mill/download"
-  fi
+  MILL_DOWNLOAD_PATH="${MILL_USER_CACHE_DIR}/download"
 fi
 
 # If not already set, try to fetch newest from Github
@@ -120,7 +118,6 @@ try_to_use_system_mill() {
   SYSTEM_MILL_SIZE=$(stat --format=%s "${SYSTEM_MILL_PATH}")
   SYSTEM_MILL_MTIME=$(stat --format=%y "${SYSTEM_MILL_PATH}")
 
-  MILL_USER_CACHE_DIR="${XDG_CACHE_HOME:-${HOME}/.cache}"/mill
   if [ ! -d "${MILL_USER_CACHE_DIR}" ]; then
     mkdir -p "${MILL_USER_CACHE_DIR}"
   fi
