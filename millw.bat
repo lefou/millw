@@ -5,7 +5,7 @@ rem You can give the required mill version with --mill-version parameter
 rem If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 rem
 rem Project page: https://github.com/lefou/millw
-rem Script Version: 0.4.8
+rem Script Version: 0.4.9
 rem
 rem If you want to improve this script, please also contribute your changes back!
 rem
@@ -16,7 +16,7 @@ rem but I don't think we need to support them in 2019
 setlocal enabledelayedexpansion
 
 if [!DEFAULT_MILL_VERSION!]==[] (
-    set "DEFAULT_MILL_VERSION=0.11.1"
+    set "DEFAULT_MILL_VERSION=0.11.4"
 )
 
 if [!GITHUB_RELEASE_CDN!]==[] (
