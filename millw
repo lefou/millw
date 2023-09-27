@@ -124,10 +124,20 @@ try_to_use_system_mill() {
 
   SYSTEM_MILL_INFO_FILE="${MILL_USER_CACHE_DIR}/system-mill-info"
   if [ -f "${SYSTEM_MILL_INFO_FILE}" ]; then
-    CACHED_SYSTEM_MILL_PATH=$(sed -n '1p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
-    CACHED_SYSTEM_MILL_VERSION=$(sed -n '2p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
-    CACHED_SYSTEM_MILL_SIZE=$(sed -n '3p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
-    CACHED_SYSTEM_MILL_MTIME=$(sed -n '4p' "${SYSTEM_MILL_INFO_FILE}" | cut -d= -f2 | sed 's/"\(.*\)"/\1/')
+    parseSystemMillInfo() {
+        LINE_NUMBER="${1}"
+        # Select the line number of the SYSTEM_MILL_INFO_FILE, cut the
+        # variable definition in that line in two halves and return
+        # the value, and finally remove the quotes.
+        sed -n "${LINE_NUMBER}p" "${SYSTEM_MILL_INFO_FILE}" |\
+            cut -d= -f2 |\
+            sed 's/"\(.*\)"/\1/'
+    }
+
+    CACHED_SYSTEM_MILL_PATH=$(parseSystemMillInfo 1)
+    CACHED_SYSTEM_MILL_VERSION=$(parseSystemMillInfo 2)
+    CACHED_SYSTEM_MILL_SIZE=$(parseSystemMillInfo 3)
+    CACHED_SYSTEM_MILL_MTIME=$(parseSystemMillInfo 4)
 
     if [ "${SYSTEM_MILL_PATH}" = "${CACHED_SYSTEM_MILL_PATH}" ] \
            && [ "${SYSTEM_MILL_SIZE}" = "${CACHED_SYSTEM_MILL_SIZE}" ] \
