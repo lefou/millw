@@ -124,6 +124,8 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 === millw 0.4.9 - 2023-09-27
 
+*This version has issues if you use it as system-wide installed mill replacement. Please don't use this version!*
+
 * Improved the logic to use a system-wide installed Mill executable
 
 === millw 0.4.8 - 2023-07-25
