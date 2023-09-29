@@ -1,5 +1,5 @@
 = Mill Wrapper Script
-:version: 0.4.9
+:version: 0.4.10
 :example-mill-version: 0.11.4
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
@@ -121,6 +121,10 @@ a CDN url prefix before the original GitHub release file url to speed up your fi
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.10 - 2023-09-29
+
+* Fixed unlimited self-calls when the `millw` script is installed in a location that is also part of the `PATH` environment variable.
 
 === millw 0.4.9 - 2023-09-27
 
