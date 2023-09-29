@@ -114,6 +114,13 @@ try_to_use_system_mill() {
     return 0
   fi
 
+  SYSTEM_MILL_FIRST_TWO_BYTES=$(head --bytes=2 "${MILL_IN_PATH}")
+  if [ "${SYSTEM_MILL_FIRST_TWO_BYTES}" = "#!" ]; then
+	  # MILL_IN_PATH is (very likely) a shell script and not the mill
+	  # executable, ignore it.
+	  return 0
+  fi
+
   SYSTEM_MILL_PATH=$(readlink -e "${MILL_IN_PATH}")
   SYSTEM_MILL_SIZE=$(stat --format=%s "${SYSTEM_MILL_PATH}")
   SYSTEM_MILL_MTIME=$(stat --format=%y "${SYSTEM_MILL_PATH}")
