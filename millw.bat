@@ -23,6 +23,10 @@ if [!GITHUB_RELEASE_CDN!]==[] (
     set "GITHUB_RELEASE_CDN="
 )
 
+if [!MILL_MAIN_CLI!]==[] (
+    set "MILL_MAIN_CLI=%~f0"
+)
+
 set "MILL_REPO_URL=https://github.com/com-lihaoyi/mill"
 
 rem %~1% removes surrounding quotes
@@ -163,10 +167,6 @@ if not exist "%MILL%" (
 set MILL_DOWNLOAD_PATH=
 set MILL_VERSION=
 set MILL_REPO_URL=
-
-if [!MILL_MAIN_CLI!]==[] (
-    set "MILL_MAIN_CLI=%0"
-)
 
 rem Need to preserve the first position of those listed options
 set MILL_FIRST_ARG=
