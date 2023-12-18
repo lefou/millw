@@ -1,6 +1,6 @@
 = Mill Wrapper Script
-:version: 0.4.10
-:example-mill-version: 0.11.4
+:version: 0.4.11
+:example-mill-version: 0.11.6
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
@@ -121,6 +121,10 @@ a CDN url prefix before the original GitHub release file url to speed up your fi
 Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse, Version 2.0].
 
 == Changelog
+
+=== millw 0.4.11 - 2023-12-18
+
+* Fixed BSP mode on Windows, due to incorrect `MILL_MAIN_CLI` variable handling.
 
 === millw 0.4.10 - 2023-09-29
 
