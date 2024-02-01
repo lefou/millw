@@ -1,5 +1,5 @@
 # This is a wrapper script, that automatically download mill from GitHub release pages
-# You can give the required mill version with -MillVersion parameter
+# You can give the required mill version with --mill-version parameter
 # If no version is given, it falls back to the value of DEFAULT_MILL_VERSION
 #
 # Project page: https://github.com/lefou/millw
@@ -69,10 +69,9 @@ if ($null -eq $MILL_VERSION) {
 
     if ($null -eq $MILL_VERSION) {
         Write-Output 'Retrieving latest mill version ...'
-        
+
         # https://github.com/PowerShell/PowerShell/issues/20964
-        $targetUrl = 
-        try {
+        $targetUrl = try {
             Invoke-WebRequest -Uri "$MILL_REPO_URL/releases/latest" -MaximumRedirection 0
         }
         catch {

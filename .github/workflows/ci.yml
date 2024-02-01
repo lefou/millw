@@ -3,7 +3,7 @@ name: CI
 on: [push, pull_request]
 
 jobs:
-  check:
+  shell:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -13,3 +13,14 @@ jobs:
 
       - name: Check
         run: make clean check
+
+  PowerShell:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run PSScriptAnalyzer
+        uses: microsoft/psscriptanalyzer-action@v1.1
+        with:
+          path: .\millw.ps1
+          enableExit: true
