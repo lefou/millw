@@ -122,6 +122,10 @@ Published under the https://www.apache.org/licenses/LICENSE-2.0[Apache Licencse,
 
 == Changelog
 
+=== millw 0.4.12 - 2024-06-25
+
+* Introduce a new PowerShell wrapper script.
+
 === millw 0.4.11 - 2023-12-18
 
 * Fixed BSP mode on Windows, due to incorrect `MILL_MAIN_CLI` variable handling.
