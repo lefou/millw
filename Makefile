@@ -12,7 +12,7 @@ check: shellcheck downloadcheck
 
 .PHONY: clean # Cleanup temporary output files
 clean:
-	$(RM) -rf -- "./out"
+	$(RM) -rf -- "./out" mill.*
 
 .PHONY: shellcheck # Check for issues in the shell script
 shellcheck:
