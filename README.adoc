@@ -4,6 +4,9 @@
 :mill-url: https://github.com/com-lihaoyi/mill
 :toc:
 :toc-placement: preamble
+:important-caption: :heavy_exclamation_mark:
+
+IMPORTANT: `millw` is now merged into the {mill-url}[official Mill repository].
 
 Small script to automatically fetch and execute {mill-url}[mill build tool].
 
